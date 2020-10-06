@@ -1,13 +1,21 @@
-TODO: Check readme and any changes to code made while creating README. 
-TODO: replace any XXs in README. 
 
-Code to generate results in "[XX](XX)" by XX. Please contact emmap1@cs.stanford.edu with any questions. 
+Code to generate results in "An Algorithmic Approach to Understanding and Reducing Unexplained Pain Disparities". Please contact emmap1@cs.stanford.edu with any questions. 
+
+## Citation
+
+If you use this code, please cite: 
+
+Emma Pierson, David M. Cutler, Jure Leskovec, Sendhil Mullainathan, and Ziad Obermeyer. An Algorithmic Approach to Understanding and Reducing Unexplained Pain Disparities. *Nature Medicine*, 2020.
+
+If you use the OAI data, please cite: 
+
+Michael C. Nevitt, David T. Felson, and Gayle Lester. The Osteoarthritis Initiative. 2006.
 
 ## Regenerating results
 
 1. **Setting up virtualenv**. Our code is run in a virtual environment using Python 3.5.2. You can set up the environment by using `virtualenv -p python3.5 YOUR_PATH_TO_VIRTUALENV`, activating the virtualenv via `source YOUR_PATH_TO_VIRTUALENV/bin/activate`, and then installing packages via `pip install -r requirements.txt`. Make sure the virtual environment is activated prior to running any of the steps below.  If you want to run `main_results_for_public_repo.ipynb` you will additionally need to run `python -m ipykernel install --user --name=knee` to install a kernel for the IPython notebook; make sure to use this kernel when running the notebook. 
 
-2. **Obtaining processed data**. The fastest and easiest way to reproduce our results is to obtain the processed image and non-image data, available at XX. This is faster and easier because the original OAI data is multiple terabytes, taking a while to download, and also requires substantial compute and storage to process. Data was processed on a computer with several terabytes of RAM and hundreds of cores. However, for completeness, we also provide the code needed to regenerate the processed data from raw data (which can be downloaded at [https://nda.nih.gov/oai/](https://nda.nih.gov/oai/)).
+2. **Data processing**. We provide the code needed to regenerate the processed data from raw OAI data (which can be downloaded at [https://nda.nih.gov/oai/](https://nda.nih.gov/oai/)). Data was processed on a computer with several terabytes of RAM and hundreds of cores. We do not know whether the OAI data format provided online will remain constant over time - eg, folder names may change - so please contact us if you have any questions. 
 
     - a. Process the original DICOM files into a pickle of numpy arrays. This can be done by running `python image_processing.py`. (We recommend running this in a screen session or similar because it takes a while). 
     - b. Write out the individual images as separate files because the original pickle is too large. This can be done by running 
