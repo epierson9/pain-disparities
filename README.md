@@ -1,11 +1,11 @@
 
-Code to generate results in "An Algorithmic Approach to Understanding and Reducing Unexplained Pain Disparities". Please contact emmap1@cs.stanford.edu with any questions. 
+Code to generate results in "An algorithmic approach to reducing unexplained pain disparities in underserved populations". Please contact emmap1@cs.stanford.edu with any questions. 
 
 ## Citation
 
 If you use this code, please cite: 
 
-Emma Pierson, David M. Cutler, Jure Leskovec, Sendhil Mullainathan, and Ziad Obermeyer. An Algorithmic Approach to Understanding and Reducing Unexplained Pain Disparities. *Nature Medicine*, 2020.
+Emma Pierson, David M. Cutler, Jure Leskovec, Sendhil Mullainathan, and Ziad Obermeyer. An algorithmic approach to reducing unexplained pain disparities in underserved populations. *Nature Medicine*, 2021.
 
 If you use the OAI data, please cite: 
 
