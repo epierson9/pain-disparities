@@ -268,9 +268,13 @@ class XRayImageDataset:
 
                                 
                                 if diacom_image is not None:
-                                    cropped_left_knee, cropped_right_knee = self.crop_to_knee(image_path)
-                                    if (cropped_left_knee is None) or (cropped_right_knee is None):
-                                        print("Warning: unable to crop knee image.")
+                                    if self.crop_to_just_the_knee:
+                                        cropped_left_knee, cropped_right_knee = self.crop_to_knee(image_path)
+                                        if (cropped_left_knee is None) or (cropped_right_knee is None):
+                                            print("Warning: unable to crop knee image.")
+                                    else:
+                                        cropped_left_knee = None
+                                        cropped_right_knee = None
                                     image_array = self.get_resized_pixel_array_from_dicom_image(diacom_image)
                                     self.images.append({'timepoint_dir':timepoint_dir, 
                                         'full_path':image_path,
