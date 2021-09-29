@@ -216,8 +216,8 @@ class XRayImageDataset:
                 print("%s directory is found in %s; concatenating and looking in the nested directory" % (timepoint_dir, base_dir_for_timepoint))
                 base_dir_for_timepoint = os.path.join(base_dir_for_timepoint, timepoint_dir)
             for cohort_folder in get_directories(base_dir_for_timepoint):
-                # A value of “C” for letter [X] indicates that the images are from participants are in the initial 2686 participants in Group C of the OAI cohort, 
-                # and a value of “E” represents the remaining 2110 participants from the cohort.
+                # A value of "C" for letter [X] indicates that the images are from participants are in the initial 2686 participants in Group C of the OAI cohort, 
+                # and a value of "E" represents the remaining 2110 participants from the cohort.
                 print(cohort_folder)
                 if timepoint_dir in ['18m']:
                     assert cohort_folder.split('.')[1] in ['D']
@@ -235,7 +235,7 @@ class XRayImageDataset:
                                                cohort_folder, 
                                                participant)
                     dates = get_directories(participant_path)
-                    # Each individual participant’s folder contains subfolders for each date on which a participant had images 
+                    # Each individual participant's folder contains subfolders for each date on which a participant had images 
                     # (format of folder name is yyyymmdd).
                     for date in dates:
                         assert is_valid_date(date)
