@@ -15,6 +15,8 @@ Michael C. Nevitt, David T. Felson, and Gayle Lester. The Osteoarthritis Initiat
 
 1. **Setting up virtualenv**. Our code is run in a virtual environment using Python 3.5.2. You can set up the environment by using `virtualenv -p python3.5 YOUR_PATH_TO_VIRTUALENV`, activating the virtualenv via `source YOUR_PATH_TO_VIRTUALENV/bin/activate`, and then installing packages via `pip install -r requirements.txt`. Make sure the virtual environment is activated prior to running any of the steps below.  If you want to run `main_results_for_public_repo.ipynb` you will additionally need to run `python -m ipykernel install --user --name=knee` to install a kernel for the IPython notebook; make sure to use this kernel when running the notebook. 
 
+Additionally, if you are going to run `image_processing.py`, our code makes use of the KneeLocalizer repo to crop knees. After setting up the virtualenv, please clone that repo, available from https://github.com/MIPT-Oulu/KneeLocalizer, into the directory where you are running our code, and run `python setup.py install` in the KneeLocalizer directory.  
+
 2. **Data processing**. We provide the code needed to regenerate the processed data from raw OAI data (which can be downloaded at [https://nda.nih.gov/oai/](https://nda.nih.gov/oai/)). Data was processed on a computer with several terabytes of RAM and hundreds of cores. We do not know whether the OAI data format provided online will remain constant over time - eg, folder names may change - so please contact us if you have any questions. 
 
     - a. Process the original DICOM files into a pickle of numpy arrays. This can be done by running `python image_processing.py`. (We recommend running this in a screen session or similar because it takes a while). 

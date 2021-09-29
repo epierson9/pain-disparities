@@ -28,6 +28,8 @@ import torchsummary
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from PIL import Image
+sys.path.append('KneeLocalizer/oulukneeloc/')
+from detector import KneeLocalizer
 
 
 
@@ -102,10 +104,7 @@ class XRayImageDataset:
         self.reprocess_all_images = reprocess_all_images
         self.downsample_factor_on_reload = downsample_factor_on_reload
         self.show_both_knees_in_each_image = show_both_knees_in_each_image
-        if crop_to_just_the_knee:
-            sys.path.append('KneeLocalizer/oulukneeloc/')
-            from detector import KneeLocalizer
-            self.knee_localizer = KneeLocalizer()
+        self.knee_localizer = KneeLocalizer()
         self.crop_to_just_the_knee = crop_to_just_the_knee
 
         if use_small_data:
@@ -268,13 +267,10 @@ class XRayImageDataset:
 
                                 
                                 if diacom_image is not None:
-                                    if self.crop_to_just_the_knee:
-                                        cropped_left_knee, cropped_right_knee = self.crop_to_knee(image_path)
-                                        if (cropped_left_knee is None) or (cropped_right_knee is None):
-                                            print("Warning: unable to crop knee image.")
-                                    else:
-                                        cropped_left_knee = None
-                                        cropped_right_knee = None
+                                    cropped_left_knee, cropped_right_knee = self.crop_to_knee(image_path)
+                                    if (cropped_left_knee is None) or (cropped_right_knee is None):
+                                        print("Warning: unable to crop knee image.")
+
                                     image_array = self.get_resized_pixel_array_from_dicom_image(diacom_image)
                                     self.images.append({'timepoint_dir':timepoint_dir, 
                                         'full_path':image_path,
@@ -922,7 +918,7 @@ def write_out_image_datasets_in_parallel():
 
     This does not write out the cropped-knee datasets or different random seed datasets; I wrote separate methods to do taht. 
     """
-    ataset_idx = 1
+    dataset_idx = 1
     n_currently_running = 0
     for normalization_method in ['imagenet_statistics', 'our_statistics', 'zscore_individually']:
         for show_both_knees_in_each_image in [True]:
