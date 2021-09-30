@@ -1,0 +1,4 @@
+include README.md LICENSE.txt MANIFEST.in
+
+recursive-include oulukneeloc *.npy
+include create_conda_env.sh
