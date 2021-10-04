@@ -23,7 +23,7 @@ class NonImageData():
 
         Minor note: this method raises a "DtypeWarning: Columns (5) have mixed types." warning. This is caused by a file in a column we do not use in a timepoint we do not use. It could be fixed by using 
 
-        pd.read_csv('/dfs/dataset/tmp/20180910-OAI/data/emma_downloaded_oai_data_9112018/MRI MetaAnalysis_ASCII/MRI10.txt', 
+        pd.read_csv('/dfs/dataset/tmp/20180910-OAI/data/emma_downloaded_oai_data_9112018/MRI_MetaAnalysis_ASCII/MRI10.txt', 
                 sep='|', 
                 dtype={'V10MQCCMNT':str})
         """
@@ -32,15 +32,40 @@ class NonImageData():
             assert what_dataset_to_use not in ['BLINDED_HOLD_OUT_DO_NOT_USE', 'all'] # just a sanity check to make sure we don't accidentally use these. 
         self.seed_to_further_shuffle_train_test_val_sets = seed_to_further_shuffle_train_test_val_sets
         self.what_dataset_to_use = what_dataset_to_use
+
+        # we need to add some directories if they do not exist
+        while not os.path.exists(os.path.join(BASE_NON_IMAGE_DATA_DIR, 'AllClinical_ASCII')):
+            os.system('mkdir -p %s' % os.path.join(BASE_NON_IMAGE_DATA_DIR, 'AllClinical_ASCII'))
+            time.sleep(5)
+        while not os.path.exists(os.path.join(BASE_NON_IMAGE_DATA_DIR, 
+            'XRay_Image_Assessments_ASCII', 
+            'SemiQuant_Scoring_ASCII')):
+            os.system('mkdir -p %s' % os.path.join(BASE_NON_IMAGE_DATA_DIR, 
+            'XRay_Image_Assessments_ASCII', 
+            'SemiQuant_Scoring_ASCII'))
+            time.sleep(5)
+        while not os.path.exists(os.path.join(BASE_NON_IMAGE_DATA_DIR, 
+            'MR_ImageAssessment_ASCII', 
+            'SemiQuant_Scoring_ASCII')):
+            os.system('mkdir -p %s' % os.path.join(BASE_NON_IMAGE_DATA_DIR, 
+            'MR_ImageAssessment_ASCII', 
+            'SemiQuant_Scoring_ASCII'))
+            time.sleep(5)
+        while not os.path.exists(os.path.join(BASE_NON_IMAGE_DATA_DIR, 'XRay_MetaAnalysis_ASCII')):
+            os.system('mkdir -p %s' % os.path.join(BASE_NON_IMAGE_DATA_DIR, 'XRay_MetaAnalysis_ASCII'))
+            time.sleep(5)
+        while not os.path.exists(os.path.join(BASE_NON_IMAGE_DATA_DIR, 'MRI_MetaAnalysis_ASCII')):
+            os.system('mkdir -p %s' % os.path.join(BASE_NON_IMAGE_DATA_DIR, 'MRI_MetaAnalysis_ASCII'))
+            time.sleep(5)
         self.clinical_base_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'AllClinical_ASCII')
         self.semiquantitative_xray_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 
-            'X-Ray Image Assessments_ASCII', 
-            'Semi-Quant Scoring_ASCII')
+            'XRay_Image_Assessments_ASCII', 
+            'SemiQuant_Scoring_ASCII')
         self.semiquantitative_mri_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 
-            'MR Image Assessment_ASCII', 
-            'Semi-Quant Scoring_ASCII')
-        self.xray_metadata_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'X-Ray MetaAnalysis_ASCII')
-        self.mri_metadata_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'MRI MetaAnalysis_ASCII')
+            'MR_ImageAssessment_ASCII', 
+            'SemiQuant_Scoring_ASCII')
+        self.xray_metadata_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'XRay_MetaAnalysis_ASCII')
+        self.mri_metadata_dir = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'MRI_MetaAnalysis_ASCII')
         self.original_dataframes = {} # store the original CSVs
         self.processed_dataframes = {} # store the processed data
         self.col_mappings = {}
