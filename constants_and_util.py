@@ -316,9 +316,11 @@ def make_train_val_test_hold_out_set(seed_to_further_shuffle_train_test_val_sets
 
     # make sure the ids are in the same order as before (random seeds are the same). 
     shuffled_id_path = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'shuffled_ids.pkl')
-    #pickle.dump(ids, open(shuffled_id_path, 'wb'))
-    previously_cached_ids = pickle.load(open(shuffled_id_path, 'rb'))
-    assert ids == previously_cached_ids
+    if os.path.exists(shuffled_id_path):
+        previously_cached_ids = pickle.load(open(shuffled_id_path, 'rb'))
+        assert ids == previously_cached_ids
+    else:
+        pickle.dump(ids, open(shuffled_id_path, 'wb'))
 
     if seed_to_further_shuffle_train_test_val_sets is not None:
         # if seed is not None, further shuffle everything but the blinded hold out set. 
@@ -335,9 +337,11 @@ def make_train_val_test_hold_out_set(seed_to_further_shuffle_train_test_val_sets
     assert sorted(results['train_ids'] + results['val_ids'] + results['test_ids'] + results['BLINDED_HOLD_OUT_DO_NOT_USE_ids']) == sorted(ids)
     
     blinded_hold_out_set_path = os.path.join(BASE_NON_IMAGE_DATA_DIR, 'blinded_hold_out_set_ids.pkl')
-    #pickle.dump(results['BLINDED_HOLD_OUT_DO_NOT_USE_ids'], open(blinded_hold_out_set_path, 'wb'))
-    previously_cached_hold_out_set_ids = pickle.load(open(blinded_hold_out_set_path, 'rb'))
-    assert results['BLINDED_HOLD_OUT_DO_NOT_USE_ids'] == previously_cached_hold_out_set_ids
+    if os.path.exists(blinded_hold_out_set_path):
+        previously_cached_hold_out_set_ids = pickle.load(open(blinded_hold_out_set_path, 'rb'))
+        assert results['BLINDED_HOLD_OUT_DO_NOT_USE_ids'] == previously_cached_hold_out_set_ids
+    else:
+        pickle.dump(results['BLINDED_HOLD_OUT_DO_NOT_USE_ids'], open(blinded_hold_out_set_path, 'wb'))
     for k in results:
         print("Number of ids in %s set: %i" % (k.replace('_ids', ''), len(results[k])))
     return results
